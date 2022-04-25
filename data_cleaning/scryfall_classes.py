@@ -108,31 +108,31 @@ class Data_Handling(Data_Scraping):
                      'border_color', 'oversized', 'finishes', 'scryfall_set_uri', 'rulings_uri', 'promo', 'set', 'set_uri', 'set_search_uri', 
                      'reprint', 'variation', 'set_id', 'prints_search_uri', 'collector_number', 'digital', 'mtgo_id']
         
-        if 'oracle_text' in self.df.columns:
-            self.df['oracle_text'].dropna(inplace=True)
+        if 'oracle_text' in df.columns:
+            df['oracle_text'].dropna(inplace=True)
             
-        if 'related_uris' in self.df.columns:
-            target_cards = self.df['related_uris']
+        if 'related_uris' in df.columns:
+            target_cards = df['related_uris']
             drop_cols.append('related_uris')
         
-        if 'type_line' in self.df.columns:
-            a = self.df[self.df['type_line'].str.contains('Token Creature')]
-            self.df.drop(labels=a.index, inplace=True)
+        if 'type_line' in df.columns:
+            a = df[df['type_line'].str.contains('Token Creature')]
+            df.drop(labels=a.index, inplace=True)
                 
-        if 'set_name' in self.df.columns:
-            c = self.df[self.df['set_name'].str.contains('Art Series')]
-            self.df.drop(labels = c.index, inplace=True)
+        if 'set_name' in df.columns:
+            c = df[df['set_name'].str.contains('Art Series')]
+            df.drop(labels = c.index, inplace=True)
             
-        drop_cols_high_nan = [col for col in self.df.columns if (self.df[col].isna().sum() / len(self.df) *100) > 35]
+        drop_cols_high_nan = [col for col in df.columns if (df[col].isna().sum() / len(self.df) *100) > 35]
         for col in drop_cols_high_nan:
             drop_cols.append(col)
-        self.df.drop(columns = drop_cols, inplace=True)
+        df.drop(columns = drop_cols, inplace=True)
 
-        return self.df, target_cards
+        return df, target_cards
     
 if __name__ == '__main__':
     ds = Data_Handling()
     df = ds.cleaning_scryfall_data()
-    df = ds.modeling_prep_mtg_oracle(df)
+    df,target = ds.modeling_prep_mtg_oracle(df)
     print(df)
     print('done')
