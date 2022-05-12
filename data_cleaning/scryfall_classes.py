@@ -21,16 +21,16 @@ class Data_Scraping:
     
     def scrape_default_uri(self):
         df = self.create_data_frame()
-        self.filepath = df['download_uri'][df['type'] == 'default_cards'][0]
+        self.filepath = df['uri'][df['type'] == 'default_cards'][0]
         return self.filepath
     
     def get_all_cards(self):
         df = self.create_data_frame()
-        self.filepath = df['download_uri'][df['type'] == 'all_cards'][0]
+        self.filepath = df['uri'][df['type'] == 'all_cards'][0]
         return self.filepath
     def get_artwork(self):
         df = self.create_data_frame()
-        self.filepath = df['download_uri'][df['type'] == 'unique_artwork'][0]
+        self.filepath = df['uri'][df['type'] == 'unique_artwork'][0]
         return self.filepath
     
 class Data_Handling(Data_Scraping):
@@ -44,8 +44,7 @@ class Data_Handling(Data_Scraping):
     def cleaning_scryfall_data(self):
         #Fix NA Values for edhrec_rank
         self.wrangle_oracle_uri()
-        if self.filepath.endswith('.json'):
-            self.df = pd.read_json(self.filepath)
+        self.df = pd.read_json(self.filepath)
             
         if 'edhrec_rank' in self.df.columns:
             edh_fix = self.df[self.df['edhrec_rank'].isna() == True]
@@ -122,6 +121,7 @@ class Data_Handling(Data_Scraping):
         if 'set_name' in df.columns:
             c = df[df['set_name'].str.contains('Art Series')]
             df.drop(labels = c.index, inplace=True)
+        df.drop(index = df[df['name'] == 'Gleemax'].index,inplace=True)
             
         drop_cols_high_nan = [col for col in df.columns if (df[col].isna().sum() / len(self.df) *100) > 35]
         for col in drop_cols_high_nan:
