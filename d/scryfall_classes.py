@@ -1,50 +1,35 @@
 import numpy as np
 import pandas as pd
+from PIL import Image
+from io import BytesIO
+import requests
 import re
 import warnings
+from d.base import Data_Scraping
 warnings.filterwarnings("ignore")
-import requests
 
-class Data_Scraping:
-    def __init__(self):
-        return
-    def create_data_frame(self):
-        response = requests.get('https://api.scryfall.com/bulk-data')
-        j = response.json()
-        df = pd.DataFrame(j['data'])
-        return df
+"""
+Some Key notes:
     
-    def scrape_oracle_uri(self):
-        df = self.create_data_frame()
-        self.filepath = df['download_uri'][df['type'] == 'oracle_cards'][0]
-        return self.filepath
+uri points you to the individual json object where you can locate all info on the data
+download_uri points you to the actual json data for the cards.
     
-    def scrape_default_uri(self):
-        df = self.create_data_frame()
-        self.filepath = df['uri'][df['type'] == 'default_cards'][0]
-        return self.filepath
-    
-    def get_all_cards(self):
-        df = self.create_data_frame()
-        self.filepath = df['uri'][df['type'] == 'all_cards'][0]
-        return self.filepath
-    def get_artwork(self):
-        df = self.create_data_frame()
-        self.filepath = df['uri'][df['type'] == 'unique_artwork'][0]
-        return self.filepath
+Included Functions:
+
+cleaning_scryfall_data: Reads in dataframe from base.py and cleans it. Focuses on if statements, to allow flexibility in use.
+Input on this is fixed, but allows users to change the direction of the call so it can call to other sites as well as other frames provided by scryfall.
+
+modeling_prep_mtg_oracle: Performs basic modeling preparation for the scryfall dataset. Goal is to create a recommendation model for users to build decks.
+
+img_get: retrieves images from their uri's and posts them for user to view
+"""
     
 class Data_Handling(Data_Scraping):
     def __init__(self):
         super().__init__()
-
-    def wrangle_oracle_uri(self):
-        super().scrape_oracle_uri()
-        return self.filepath
     
-    def cleaning_scryfall_data(self):
-        #Fix NA Values for edhrec_rank
-        self.wrangle_oracle_uri()
-        self.df = pd.read_json(self.filepath)
+    def cleaning_scryfall_data(self, n = 'oracle_cards'):
+        self.df = super().get_data_with(n = n)
             
         if 'edhrec_rank' in self.df.columns:
             edh_fix = self.df[self.df['edhrec_rank'].isna() == True]
@@ -107,32 +92,40 @@ class Data_Handling(Data_Scraping):
                      'border_color', 'oversized', 'finishes', 'scryfall_set_uri', 'rulings_uri', 'promo', 'set', 'set_uri', 'set_search_uri', 
                      'reprint', 'variation', 'set_id', 'prints_search_uri', 'collector_number', 'digital', 'mtgo_id']
         
-        if 'oracle_text' in df.columns:
-            df['oracle_text'].dropna(inplace=True)
+        if 'oracle_text' in self.df.columns:
+            self.df['oracle_text'].dropna(inplace=True)
             
-        if 'related_uris' in df.columns:
-            target_cards = df['related_uris']
+        if 'related_uris' in self.df.columns:
+            target_cards = self.df['related_uris']
             drop_cols.append('related_uris')
         
         if 'type_line' in df.columns:
-            a = df[df['type_line'].str.contains('Token Creature')]
-            df.drop(labels=a.index, inplace=True)
+            a = self.df[self.df['type_line'].str.contains('Token Creature')]
+            self.df.drop(labels=a.index, inplace=True)
                 
         if 'set_name' in df.columns:
-            c = df[df['set_name'].str.contains('Art Series')]
-            df.drop(labels = c.index, inplace=True)
-        df.drop(index = df[df['name'] == 'Gleemax'].index,inplace=True)
+            c = self.df[self.df['set_name'].str.contains('Art Series')]
+            self.df.drop(labels = c.index, inplace=True)
+        
+        # Drop a million mana_cost card from UnHinged(joke set)
+        self.df.drop(index = df[df['name'] == 'Gleemax'].index,inplace=True)
             
-        drop_cols_high_nan = [col for col in df.columns if (df[col].isna().sum() / len(self.df) *100) > 35]
-        for col in drop_cols_high_nan:
-            drop_cols.append(col)
-        df.drop(columns = drop_cols, inplace=True)
+        drop_cols_high_nan = [col for col in self.df.columns if (self.df[col].isna().sum() / len(self.df) *100) > 35]
+        self.df.drop(columns = drop_cols_high_nan, inplace = True)
+        self.df.drop(columns = drop_cols, inplace = True)
 
-        return df, target_cards
+        return self.df, target_cards
     
+    def img_return(self,card_name : str):
+        img_str = self.df[self.df['name'] == card_name]['image_uris'][0]['normal']
+        response = requests.get(img_str)
+        img = Image.open(BytesIO(response.content))
+        return img
+
 if __name__ == '__main__':
-    ds = Data_Handling()
-    df = ds.cleaning_scryfall_data()
-    df,target = ds.modeling_prep_mtg_oracle(df)
-    print(df)
-    print('done')
+    dh = Data_Handling()
+    print("Data Handling has been instantiated")
+    df = dh.cleaning_scryfall_data()
+    print("Successfully created DataFrame Object")
+    df = dh.modeling_prep_mtg_oracle(df)
+    print("Finished with Model Prep for Data")
