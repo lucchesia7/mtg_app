@@ -1,5 +1,5 @@
 import pymongo
-from d.scryfall_classes import Data_Handling
+from classes.scryfall_classes import Data_Handling
 DBNAME = 'test'
 PASSWORD = 'admin'
 
