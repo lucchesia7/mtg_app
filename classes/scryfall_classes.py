@@ -5,7 +5,7 @@ from io import BytesIO
 import requests
 import re
 import warnings
-from d.base import Data_Scraping
+from classes.base import Data_Scraping
 warnings.filterwarnings("ignore")
 
 """
