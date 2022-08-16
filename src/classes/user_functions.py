@@ -1,7 +1,6 @@
 from PIL import Image
 from io import BytesIO
 import requests
-from sklearn.feature_extraction import img_to_graph
 from classes.models import Model
 import pandas as pd
 import ast
