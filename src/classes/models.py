@@ -12,13 +12,13 @@ def dummy_fun(doc):
 class Model():
     def __init__(self):
         self.df = pd.read_csv(filepath, low_memory=False)
-        self.nnm = pickle.load(open(r'{}\model'.format(folder_dir), 'rb'))
+        self.nnm = pickle.load(open('{}/model'.format(folder_dir), 'rb'))
 
     def nn(self, card_name:str):
         self.vect = TfidfVectorizer(preprocessor = dummy_fun,
                                     tokenizer = dummy_fun,
                                     token_pattern=None,
-                                    vocabulary=pickle.load(open(r'{}\vectorizer_vocab'.format(folder_dir), 'rb')))
+                                    vocabulary=pickle.load(open('{}/vectorizer_vocab'.format(folder_dir), 'rb')))
         self.vect.fit([lemmas for lemmas in self.df['lemmas']])
         self.names = []
         self.doc = self.vect.transform([lemmas for lemmas in self.df['lemmas'][self.df['name'] == card_name]])
