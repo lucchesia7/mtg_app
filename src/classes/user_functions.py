@@ -1,13 +1,16 @@
+from pathlib import Path
 from PIL import Image
 from io import BytesIO
 import requests
-from classes.models import Model
+from models import Model
 import pandas as pd
 import ast
+import os
 
+filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')
 class User_Functions():
     def __init__(self):
-        self.df = pd.read_csv(r'C:\Users\Alex Lucchesi\OneDrive\Documents\GitHub\MTG_app\src\classes\oracle_data.csv', low_memory=False)
+        self.df = pd.read_csv(filepath, low_memory=False)
 
     def img_return(self,card_name : str = 'Sol Ring'):
         """
