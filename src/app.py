@@ -5,9 +5,9 @@ import sys
 import os
 from classes.user_functions import User_Functions
 
-st.title("Magic the Gathering Card Viewer")
+st.title("Magic the Gathering Card Viewer and Recommendation System")
 
-card_name = st.text_input('Input card name:')
+card_name = st.text_input('Please Input the Full Name of the Card you Would Like to See:')
 st.image(User_Functions().img_return(card_name.lower()))
 
 try:
