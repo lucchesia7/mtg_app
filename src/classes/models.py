@@ -1,20 +1,17 @@
-from numpy import vectorize
+from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.neighbors import NearestNeighbors
 import pandas as pd
 import pickle
-import spacy
 import os
 
 folder_dir = os.path.dirname(os.path.abspath(__file__))
-
+filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')
 def dummy_fun(doc):
     return doc
 
 class Model():
     def __init__(self):
-        self.df = pd.read_csv(r'C:\Users\Alex Lucchesi\OneDrive\Documents\GitHub\MTG_app\src\classes\oracle_data.csv', 
-                              low_memory=False)
+        self.df = pd.read_csv(filepath, low_memory=False)
         self.nnm = pickle.load(open(r'{}\model'.format(folder_dir), 'rb'))
 
     def nn(self, card_name:str):
