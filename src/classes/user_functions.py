@@ -12,7 +12,7 @@ class User_Functions():
     def __init__(self):
         self.df = pd.read_csv(filepath, low_memory=False)
 
-    def img_return(self,card_name : str = 'Sol Ring'):
+    def img_return(self,card_name : str):
         """
         Input: Card name as a string. String set to autopopulate with Sol Ring. 
         Bug: Dual sided cards are not returning. Desired return would be both sides of the card, if not just the side requested.
