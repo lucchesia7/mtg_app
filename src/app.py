@@ -10,6 +10,8 @@ st.title("Magic the Gathering Card Viewer")
 card_name = st.text_input('Input card name:')
 st.image(User_Functions().img_return(card_name.lower()))
 
-st.write(f"Here are 10 cards that would be recommended for your deck based off {card_name.title()}")
-st.image(User_Functions().recommended_cards(card_name = card_name))
-@st.cache(suppress_st_warning=True, allow_output_mutation=True)
+try:
+  st.write(f"Here are 10 cards that would be recommended for your deck based off {card_name.title()}")
+  st.image(User_Functions().recommended_cards(card_name = card_name))
+except:
+  pass
