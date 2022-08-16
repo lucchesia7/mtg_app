@@ -7,7 +7,7 @@ from classes.user_functions import User_Functions
 
 st.title("Magic the Gathering Card Viewer")
 
-card_name = st.text_input('Input card name:',value='Sol Ring')
+card_name = st.text_input('Input card name:')
 st.image(User_Functions().img_return(card_name.lower()))
 
 
