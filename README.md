@@ -2,7 +2,7 @@
  Refining my skills and teaching myself new ones by creating an application to review magic the gathering cards. Follow my journey here!
 
 # Preface
-This is my attempt to combine the two things I love most in the world: Data Storytelling and Magic The Gathering. I want to use this application to push myself in pursuit of knowledge (and gain the attention of Wizards of the Coast). 
+This is my attempt to combine the two things I love most in the world: Python and Magic The Gathering. I want to use this application to push myself in pursuit of knowledge (and gain the attention of Wizards of the Coast). 
 
 So often, MTG players, both new and old, go to build or tweak their decks and can't find that perfect card to synergize with their deck properly. I wanted to fix that for myself and anyone else who might wish for better too. So, join me on this journey and we will be in a world of pure card synergy!
 
