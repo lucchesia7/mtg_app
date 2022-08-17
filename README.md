@@ -14,11 +14,11 @@ In this post-COVID age, we find ourselves on SpellTable, playing online games mo
     │   
     ├── src                         <- Source code folder for this project
         |
-        ├── classes                 <- Folder for classes created for scraping API, handling data, and user_functionality in the application.
-        |
         ├── app.py                  <- Application file recognized by Streamlit
         |
         ├── requirements.txt        <- File containing all necessary dependencies for the application
+        |
+        ├── classes                 <- Folder for classes created for scraping API, handling data, and user_functionality in the application.
         │
         └── data                    <- Datasets used and created for this project
         
