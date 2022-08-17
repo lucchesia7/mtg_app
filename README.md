@@ -28,6 +28,10 @@ In this post-COVID age, we find ourselves on SpellTable, playing online games mo
 https://lucchesia7-mtg-app-srcapp-t10n68.streamlitapp.com/ \
 The application is now live with it's V1.0.1 and available for anyone with the link to use. For those looking to improve upon the app, all current dependencies for it are located within the requirements.txt file.
 
+## Currently Available Features
+* Users can look up any single-faced card and return a high-resolution image of the card.
+* Users will be able to see the top-10 related cards to the input card.
+
 ## Limitations/Unintended Features
 * Currently, the application cannot return dual-faced cards (i.e. Jorn, God of Winter // Kaldring, the Rimestaff)
 * Sometimes, will return token/emblem recommendations
