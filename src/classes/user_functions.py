@@ -27,15 +27,6 @@ class User_Functions():
         img = Image.open(BytesIO(response.content))
         return img
 
-    def card_lookup(self, card_name : str):
-        """
-        Input: Card name as a string. String set to autopopulate with Sol Ring.
-        TODO: Return relevant card information. Then integrate into application with user search to return alongside the image.
-        Output: All relevant details about the card available currently. 
-        """
-        #TODO
-        # Provide all relevant card information. Return all to begin, then filter out what we don't want.
-        pass
 
     def recommended_cards(self, card_name : str):
         """
