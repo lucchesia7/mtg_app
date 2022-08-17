@@ -7,15 +7,20 @@ In this post-COVID age, we find ourselves on SpellTable, playing online games mo
 ## Project Structure
 
     ├── LICENSE
-    ├── README.md          <- The top-level README for developers/collaborators using this project.
+    ├── .gitignore
+    ├── README.md                   <- The top-level README for developers/collaborators using this project.
     │ 
     │ 
     │   
-    ├── src                <- Source code folder for this project
+    ├── src                         <- Source code folder for this project
         |
-        ├── classes        <- Folder for classes created for scraping API, handling data, and user_functionality in the application.
+        ├── classes                 <- Folder for classes created for scraping API, handling data, and user_functionality in the application.
+        |
+        ├── app.py                  <- Application file recognized by Streamlit
+        |
+        ├── requirements.txt        <- File containing all necessary dependencies for the application
         │
-        └── data           <- Datasets used and created for this project
+        └── data                    <- Datasets used and created for this project
         
 --------
 
@@ -24,8 +29,8 @@ https://lucchesia7-mtg-app-srcapp-t10n68.streamlitapp.com/ \
 The application is now live with it's V1.0.1 and available for anyone with the link to use. For those looking to improve upon the app, all current dependencies for it are located within the requirements.txt file.
 
 ## Limitations/Unintended Features
-Currently, the application cannot return dual-faced cards (i.e. Jorn, God of Winter // Kaldring, the Rimestaff)
-Sometimes, will return token/emblem recommendations
+* Currently, the application cannot return dual-faced cards (i.e. Jorn, God of Winter // Kaldring, the Rimestaff)
+* Sometimes, will return token/emblem recommendations
 
 ## Future Updates
 We want to create a drop-down text menu that starts to autofill the card-name with 10 results of cards that start with the letters provided.
