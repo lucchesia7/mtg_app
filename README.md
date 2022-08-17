@@ -33,5 +33,5 @@ The application is now live with it's V1.0.1 and available for anyone with the l
 * Sometimes, will return token/emblem recommendations
 
 ## Future Updates
-We want to create a drop-down text menu that starts to autofill the card-name with 10 results of cards that start with the letters provided.
+We want to create a drop-down text menu that starts to autofill the card-name with 10 results of cards that start with the letters provided. \
 We will continue to improve on our current limitations and expand our features as needed.
