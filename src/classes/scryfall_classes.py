@@ -1,7 +1,8 @@
 import spacy
 import numpy as np
 import pandas as pd
-
+import os
+from pathlib import Path
 import re
 import warnings
 from base import Data_Scraping
@@ -20,7 +21,7 @@ Input on this is fixed, but allows users to change the direction of the call so 
 
 modeling_prep_mtg_oracle: Performs basic modeling preparation for the scryfall dataset. Goal is to create a recommendation model for users to build decks.
 """
-    
+filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')   
 class Data_Handling(Data_Scraping):
     def __init__(self):
         super().__init__()
@@ -79,6 +80,16 @@ class Data_Handling(Data_Scraping):
                 l.append(val)
             self.df['mana_cost'] = l
             self.df['mana_cost'] = np.where(self.df['mana_cost'] == '', self.df['cmc'], self.df['mana_cost'])
+            
+        # Drops all Token cards
+        if 'type_line' in self.df.columns:
+            a = self.df[self.df['type_line'].str.contains('Token Creature')]
+            self.df.drop(labels=a.index, inplace=True)
+
+        # Drops all art-series cards        
+        if 'set_name' in self.df.columns:
+            c = self.df[self.df['set_name'].str.contains('Art Series')]
+            self.df.drop(labels = c.index, inplace=True)
         
 
             
@@ -135,8 +146,9 @@ class Data_Handling(Data_Scraping):
             token = re.sub(r'\d+/\d+/\d+', '', token)
             self.df['tokens'] = re.sub('[^a-zA-Z 0-9]', '', token)
         self.df['tokens']  = self.df['tokens'].str.lower().str.split()
-        def lemma(self, df: pd.DataFrame):
-            self.df = df
+        
+    def lemma(self, df: pd.DataFrame):
+        self.df = df
         self.df.dropna(subset = ['oracle_text'], axis =0, inplace=True)
         self.df.drop(self.df.index[self.df['oracle_text'] == ''], inplace=True)
         nlp = spacy.load('en_core_web_md')
@@ -152,5 +164,7 @@ if __name__ == '__main__':
     print("Data Handling has been instantiated")
     df = dh.cleaning_scryfall_data()
     print("Successfully created DataFrame Object")
-    print(dh.lemma(df))
-    print(df['lemmas'])
+    df['lemmas'] = dh.lemma(df)
+    print("Successfully created lemmas from Card Descriptions")
+    df.to_csv(filepath)
+    print("Data has been updated. Thank you!")
