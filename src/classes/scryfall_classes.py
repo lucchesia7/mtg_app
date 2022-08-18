@@ -2,6 +2,8 @@ import spacy
 import numpy as np
 import pandas as pd
 import os
+
+from pathlib import Path
 import re
 import warnings
 from pathlib import Path
@@ -21,7 +23,9 @@ Input on this is fixed, but allows users to change the direction of the call so 
 
 modeling_prep_mtg_oracle: Performs basic modeling preparation for the scryfall dataset. Goal is to create a recommendation model for users to build decks.
 """
-filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')    
+
+filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')   
+
 class Data_Handling(Data_Scraping):
     def __init__(self):
         super().__init__()
@@ -80,6 +84,16 @@ class Data_Handling(Data_Scraping):
                 l.append(val)
             self.df['mana_cost'] = l
             self.df['mana_cost'] = np.where(self.df['mana_cost'] == '', self.df['cmc'], self.df['mana_cost'])
+            
+        # Drops all Token cards
+        if 'type_line' in self.df.columns:
+            a = self.df[self.df['type_line'].str.contains('Token Creature')]
+            self.df.drop(labels=a.index, inplace=True)
+
+        # Drops all art-series cards        
+        if 'set_name' in self.df.columns:
+            c = self.df[self.df['set_name'].str.contains('Art Series')]
+            self.df.drop(labels = c.index, inplace=True)
         
 
             
