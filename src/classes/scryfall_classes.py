@@ -2,9 +2,11 @@ import spacy
 import numpy as np
 import pandas as pd
 import os
+
 from pathlib import Path
 import re
 import warnings
+from pathlib import Path
 from base import Data_Scraping
 warnings.filterwarnings("ignore")
 
@@ -21,7 +23,9 @@ Input on this is fixed, but allows users to change the direction of the call so 
 
 modeling_prep_mtg_oracle: Performs basic modeling preparation for the scryfall dataset. Goal is to create a recommendation model for users to build decks.
 """
+
 filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')   
+
 class Data_Handling(Data_Scraping):
     def __init__(self):
         super().__init__()

@@ -38,4 +38,5 @@ The application is now live with it's V1.0.1 and available for anyone with the l
 
 ## Future Updates
 We want to create a drop-down text menu that starts to autofill the card-name with 10 results of cards that start with the letters provided. \
-We will continue to improve on our current limitations and expand our features as needed.
+We will continue to improve on our current limitations and expand our features as needed. \
+We will edit the 10 related cards to be returned in two columns

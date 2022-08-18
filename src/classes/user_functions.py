@@ -48,7 +48,7 @@ class User_Functions():
         #Uses KNN model to create card recommendations
         model = Model()
         names = model.nn(card_name=card_name.title())
-        return [self.img_return(name) for name in names[0][1:]]
+        return [self.img_return(name) for name in names]
 
 if __name__ == '__main__':
     User_Functions()
