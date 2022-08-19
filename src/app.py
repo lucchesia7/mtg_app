@@ -15,7 +15,7 @@ if st.button('Submit Card'):
         col3.image(img_list[8:11])
         
     except:
-        st.error(f'{card_name.title()} is an invalid card. Please re-try with a valid card name.\ If the card name is valid, try typing the name exactly as it appears on the card.')
+        st.error(f'{card_name.title()} is an invalid card. Please re-try with a valid card name. If the card name is valid, try typing the name exactly as it appears on the card.')
 else:
     pass
       
