@@ -32,7 +32,9 @@ class Model():
                 name = name.capitalize()
             elif name[0].isupper() and name in self.cap_stop_words:
                 name = name.lower()
-            self.string += (' '+ name)
+            else:
+                pass
+            self.string += (name + ' ')
             self.string = self.string.strip()
 
         self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.string])
@@ -42,6 +44,3 @@ class Model():
             self.names.append(self.df['name'][index])
         return self.names
 
-if __name__ == '__main__':
-    model = Model()
-    print(model.nn('Toothy, Imaginary Friend'))
