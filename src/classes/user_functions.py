@@ -37,5 +37,5 @@ class User_Functions():
         #TODO
         #Uses KNN model to create card recommendations
         model = Model()
-        names = model.nn(card_name=card_name.capitalize())
+        names = model.nn(card_name=card_name)
         return [self.img_return(name) for name in names]
