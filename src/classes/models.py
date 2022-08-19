@@ -14,7 +14,7 @@ class Model():
     def __init__(self):
         self.df = pd.read_csv(filepath, low_memory=False)
         self.nnm = pickle.load(open('{}/data/model'.format(folder_dir), 'rb'))
-        self.stop_words = ['on', 'the']
+        self.stop_words = ['on', 'the', 'of']
         self.cap_stop_words = [w.capitalize() for w in self.stop_words]
 
     def nn(self, card_name:str):
@@ -32,7 +32,9 @@ class Model():
                 name = name.capitalize()
             elif name[0].isupper() and name in self.cap_stop_words:
                 name = name.lower()
-            self.string += (' '+ name)
+            else:
+                pass
+            self.string += (name + ' ')
             self.string = self.string.strip()
             
         self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.string])
