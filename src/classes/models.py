@@ -36,11 +36,11 @@ class Model():
                 pass
             self.string += (name + ' ')
             self.string = self.string.strip()
-            
+
         self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.string])
-        self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=11, return_distance=False)
+        self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=13, return_distance=False)
 
         for index in self.n_index[0][1:]:
             self.names.append(self.df['name'][index])
         return self.names
-        
+
