@@ -37,7 +37,7 @@ class Model():
 #             self.string += (name + ' ')
 #             self.string = self.string.strip()
 
-        self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.string])
+        self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == card_name])
         self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=13, return_distance=False)
 
         for index in self.n_index[0][1:]:
