@@ -27,12 +27,3 @@ class Data_Scraping:
             self.return_frame = pd.read_json(filepath)
             
         return self.return_frame
-
-if __name__ == '__main__':
-    ds = Data_Scraping()
-    print('ds instantiated')
-    oracle_cards = ds.get_data_with(n = 'oracle_cards')
-    print('oracle_cards_made')
-    print(oracle_cards)
-    
-    
