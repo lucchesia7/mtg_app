@@ -14,7 +14,7 @@ class Model():
     def __init__(self):
         self.df = pd.read_csv(filepath, low_memory=False)
         self.nnm = pickle.load(open('{}/data/model'.format(folder_dir), 'rb'))
-        self.stop_words = ['on', 'the']
+        self.stop_words = ['on', 'the', 'of']
         self.cap_stop_words = [w.capitalize() for w in self.stop_words]
 
     def nn(self, card_name:str):
@@ -34,11 +34,14 @@ class Model():
                 name = name.lower()
             self.string += (' '+ name)
             self.string = self.string.strip()
-            
+
         self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.string])
-        self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=11, return_distance=False)
+        self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=13, return_distance=False)
 
         for index in self.n_index[0][1:]:
             self.names.append(self.df['name'][index])
         return self.names
-        
+
+if __name__ == '__main__':
+    model = Model()
+    print(model.nn('Toothy, Imaginary Friend'))
