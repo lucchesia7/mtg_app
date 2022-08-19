@@ -36,7 +36,6 @@ class Model():
                 pass
             self.string += (name + ' ')
             self.string = self.string.strip()
-            print(self.string)
 
         self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.string])
         self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=13, return_distance=False)
