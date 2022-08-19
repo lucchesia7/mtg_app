@@ -25,17 +25,17 @@ class Model():
         self.vect.fit(self.df['lemmas'])
 
         self.names = []
-        self.split = card_name.split()
-        self.string = ''
-        for name in self.split:
-            if name[0].islower() and name not in self.stop_words:
-                name = name.capitalize()
-            elif name[0].isupper() and name in self.cap_stop_words:
-                name = name.lower()
-            else:
-                pass
-            self.string += (name + ' ')
-            self.string = self.string.strip()
+#         self.split = card_name.split()
+#         self.string = ''
+#         for name in self.split:
+#             if name[0].islower() and name not in self.stop_words:
+#                 name = name.capitalize()
+#             elif name[0].isupper() and name in self.cap_stop_words:
+#                 name = name.lower()
+#             else:
+#                 pass
+#             self.string += (name + ' ')
+#             self.string = self.string.strip()
 
         self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.string])
         self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=13, return_distance=False)
