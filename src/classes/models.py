@@ -13,7 +13,7 @@ def dummy_fun(doc):
 class Model():
     def __init__(self):
         self.df = pd.read_csv(filepath, low_memory=False)
-        self.nnm = pickle.load(open('{}/model'.format(folder_dir), 'rb'))
+        self.nnm = pickle.load(open('{}model'.format(folder_dir), 'rb'))
         self.stop_words = ['on', 'the', 'of']
         self.cap_stop_words = [w.capitalize() for w in self.stop_words]
 
@@ -21,7 +21,7 @@ class Model():
         self.vect = TfidfVectorizer(preprocessor = dummy_fun,
                                     tokenizer = dummy_fun,
                                     token_pattern=None,
-                                    vocabulary=pickle.load(open('{}/vectorizer_vocab'.format(folder_dir), 'rb')))
+                                    vocabulary=pickle.load(open('{}vectorizer_vocab'.format(folder_dir), 'rb')))
         self.vect.fit(self.df['lemmas'])
 
         self.names = []
