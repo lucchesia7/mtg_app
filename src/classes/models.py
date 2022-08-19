@@ -41,7 +41,4 @@ class Model():
         for index in self.n_index[0][1:]:
             self.names.append(self.df['name'][index])
         return self.names
-
-if __name__ == '__main__':
-    model = Model()
-    print(model.nn('Blood on the Snow'))
+        
