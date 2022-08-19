@@ -85,15 +85,10 @@ class Data_Handling(Data_Scraping):
             self.df['mana_cost'] = l
             self.df['mana_cost'] = np.where(self.df['mana_cost'] == '', self.df['cmc'], self.df['mana_cost'])
             
-        # Drops all Token cards
-        if 'type_line' in self.df.columns:
-            a = self.df[self.df['type_line'].str.contains('Token Creature')]
-            self.df.drop(labels=a.index, inplace=True)
-
-        # Drops all art-series cards        
-        if 'set_name' in self.df.columns:
-            c = self.df[self.df['set_name'].str.contains('Art Series')]
-            self.df.drop(labels = c.index, inplace=True)
+        d = ['Card // Card', 'Scheme', 'Vanguard', 'Token', 'Emblem', 'Card']
+        for v in d:
+            i = self.df[self.df['type_line'].str.startswith(v)].index
+            self.df.drop(labels = i, inplace=True)
         
 
             
@@ -121,15 +116,6 @@ class Data_Handling(Data_Scraping):
             target_cards = self.df['related_uris']
             drop_cols.append('related_uris')
         
-        # Drops all Token cards
-        if 'type_line' in df.columns:
-            a = self.df[self.df['type_line'].str.contains('Token Creature')]
-            self.df.drop(labels=a.index, inplace=True)
-
-        # Drops all art-series cards        
-        if 'set_name' in df.columns:
-            c = self.df[self.df['set_name'].str.contains('Art Series')]
-            self.df.drop(labels = c.index, inplace=True)
         
         # Drop a million mana_cost card from UnHinged(joke set)
         self.df.drop(index = df[df['name'] == 'Gleemax'].index,inplace=True)
