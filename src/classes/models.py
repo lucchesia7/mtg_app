@@ -15,24 +15,24 @@ class Model():
         self.df = pd.read_csv(filepath, low_memory=False)
         self.nnm = pickle.load(open('{}/model'.format(folder_dir), 'rb'))
         self.stop_words = ['on', 'the', 'of']
-        self.cap_stop_words = [w.capitalize() for w in self.stop_words]
+        self.cap_stop_words = [w.title() for w in self.stop_words]
     
     def card_name_fix(self, card_name:str):
         self.split = card_name.split()
         self.string = ''
+        # print(self.split)
         for name in self.split:
             if '-' in name:
                 name = name.title()
             elif name[0].islower() and name not in self.stop_words:
+                # print(f'{name} is lower-cased and not in stop words')
                 name = name.title()
             elif name[0].isupper() and name in self.cap_stop_words:
+                # print(f'{name} is upper-cased and is in stop words')
                 name = name.lower()
-            else:
-                name = name.title()
-                print(name + 'else')
             self.string += (' ' + name)
             self.string = self.string.strip()
-        print(self.string)
+        # print(self.string)
         return self.string
 
     def nn(self, card_name:str):
@@ -50,4 +50,4 @@ class Model():
         return self.names
 if __name__ == '__main__':
     model = Model()
-    print(model.nn('pIr, iMagiNative raScal'))
+    print(model.nn('omnath, locus Of creation'))
