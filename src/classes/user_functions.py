@@ -30,12 +30,9 @@ class User_Functions():
     def recommended_cards(self, card_name : str):
         """
         Input: Card name as str. Str set to autopopulate with Sol Ring.
-        TODO: Create KNN model using description column within the dataframe. Use this model to output recommended cards to user.
-        Desired output would be 10 related cards
         Output: 10 related cards to user input card name.
         """
-        #TODO
-        #Uses KNN model to create card recommendations
+        
         model = Model()
         names = model.nn(card_name=card_name)
         return [self.img_return(name) for name in names]
