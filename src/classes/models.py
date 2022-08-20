@@ -15,7 +15,25 @@ class Model():
         self.df = pd.read_csv(filepath, low_memory=False)
         self.nnm = pickle.load(open('{}/model'.format(folder_dir), 'rb'))
         self.stop_words = ['on', 'the', 'of']
-        self.cap_stop_words = [w.capitalize() for w in self.stop_words]
+        self.cap_stop_words = [w.title() for w in self.stop_words]
+    
+    def card_name_fix(self, card_name:str):
+        self.split = card_name.split()
+        self.string = ''
+        # print(self.split)
+        for name in self.split:
+            if '-' in name:
+                name = name.title()
+            elif name[0].islower() and name not in self.stop_words:
+                # print(f'{name} is lower-cased and not in stop words')
+                name = name.title()
+            elif name[0].isupper() and name in self.cap_stop_words:
+                # print(f'{name} is upper-cased and is in stop words')
+                name = name.lower()
+            self.string += (' ' + name)
+            self.string = self.string.strip()
+        # print(self.string)
+        return self.string
 
     def nn(self, card_name:str):
         self.vect = TfidfVectorizer(preprocessor = dummy_fun,
@@ -23,24 +41,13 @@ class Model():
                                     token_pattern=None,
                                     vocabulary=pickle.load(open('{}/vectorizer_vocab'.format(folder_dir), 'rb')))
         self.vect.fit(self.df['lemmas'])
-
         self.names = []
-        self.split = card_name.split()
-        self.string = ''
-        for name in self.split:
-            if name[0].islower() and name not in self.stop_words:
-                name = name.capitalize()
-            elif name[0].isupper() and name in self.cap_stop_words:
-                name = name.lower()
-            else:
-                pass
-            self.string += (name + ' ')
-            self.string = self.string.strip()
-
-        self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == card_name])
+        self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.card_name_fix(card_name)])
         self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=13, return_distance=False)
 
         for index in self.n_index[0][1:]:
             self.names.append(self.df['name'][index])
         return self.names
-
+if __name__ == '__main__':
+    model = Model()
+    print(model.nn('omnath, locus Of creation'))
