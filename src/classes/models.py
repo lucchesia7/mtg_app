@@ -45,8 +45,9 @@ class Model():
         self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.card_name_fix(card_name)])
         self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=13, return_distance=False)
 
-        for index in self.n_index[0][1:]:
-            self.names.append(self.df['name'][index])
+        for index in self.n_index[0]:
+            if index != self.df[self.df['name'] == self.card_name_fix(card_name)].index:
+                self.names.append(self.df['name'][index])
         return self.names
 if __name__ == '__main__':
     model = Model()
