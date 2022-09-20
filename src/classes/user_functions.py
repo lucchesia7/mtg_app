@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image
 from io import BytesIO
 import requests
-from classes.models import Model
+from models import Model
 import pandas as pd
 import ast
 import os
@@ -36,3 +36,6 @@ class User_Functions():
         model = Model()
         names = model.nn(card_name=card_name)
         return [self.img_return(name) for name in names]
+        
+    def token_generator(self, token_type: str, token_count: int):
+        pass
