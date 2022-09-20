@@ -85,10 +85,10 @@ class Data_Handling(Data_Scraping):
             self.df['mana_cost'] = l
             self.df['mana_cost'] = np.where(self.df['mana_cost'] == '', self.df['cmc'], self.df['mana_cost'])
             
-        d = ['Card // Card', 'Scheme', 'Vanguard', 'Token', 'Emblem', 'Card', 'Plane']
-        for v in d:
-            i = self.df[self.df['type_line'].str.startswith(v)].index
-            self.df.drop(labels = i, inplace=True)
+        # d = ['Card // Card', 'Scheme', 'Vanguard', 'Token', 'Emblem', 'Card', 'Plane']
+        # for v in d:
+        #     i = self.df[self.df['type_line'].str.startswith(v)].index
+        #     self.df.drop(labels = i, inplace=True)
         
 
             

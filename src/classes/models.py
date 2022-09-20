@@ -24,15 +24,17 @@ class Model():
         for name in self.split:
             if '-' in name:
                 name = name.title()
-            elif name[0].islower() and name not in self.stop_words:
+            elif name[0].islower() and name not in self.stop_words or card_name.startswith(name):
                 # print(f'{name} is lower-cased and not in stop words')
                 name = name.title()
-            elif name[0].isupper() and name in self.cap_stop_words:
+            elif name[0].isupper() and name in self.cap_stop_words and card_name.startswith(name) !=1:
                 # print(f'{name} is upper-cased and is in stop words')
                 name = name.lower()
             self.string += (' ' + name)
             self.string = self.string.strip()
         # print(self.string)
+            
+
         return self.string
 
     def nn(self, card_name:str):
@@ -51,4 +53,7 @@ class Model():
         return self.names
 if __name__ == '__main__':
     model = Model()
-    print(model.nn('omnath, locus Of creation'))
+    print(model.card_name_fix('elisha, The infinite'))
+    print(model.card_name_fix('the world tree'))
+    print(model.card_name_fix('The ur-Dragon'))
+    # print(model.nn('the world tree'))
