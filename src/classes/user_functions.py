@@ -28,9 +28,26 @@ class User_Functions():
         img = Image.open(BytesIO(response.content))
         return img
 
-    def token_generation(self, token_name: str, token_type: str):
-        s = self.token_df[self.token_df['name'].str.lower().str.contains(token_name.lower())]['image_uris']
-        for k in s:
+    def token_generation(self, token_name: str, token_type: str, token_count:int=1):
+        """
+        Input:
+        token_name : the name of the token you wish to create. Must be str data type\n
+        token_type: The type of token you wish to create. This can be Emblems, Planes, Tokens, and Vanguards.\n
+        token_count: The number of tokens you wish to create
+        """
+
+        if token_type.lower() == 'tokens':
+            self.ss = self.token_df[self.token_df['type_line'].str.contains('Token')]
+            self.s = self.ss[self.ss['name'].str.lower().str.contains(token_name.lower())]['image_uris']
+
+        elif token_type.lower() == 'emblems':
+            self.ss = self.token_df[self.token_df['type_line'].str.contains('Emblems')]
+            self.s = self.ss[self.ss['name'].str.lower().str.contains(token_name.lower())]['image_uris']
+
+        else:
+            self.s = self.token_df[self.token_df['name'].str.lower().str.contains(token_name.lower())]['image_uris']
+
+        for k in self.s:
             img_dic = ast.literal_eval(k)
         img_str = img_dic['normal']
         response = requests.get(img_str)
@@ -40,7 +57,7 @@ class User_Functions():
 
     def recommended_cards(self, card_name : str):
         """
-        Input: Card name as str. Str set to autopopulate with Sol Ring.
+        Input: Card name as str.
         Output: 10 related cards to user input card name.
         """
         

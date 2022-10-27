@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 import warnings
 from pathlib import Path
-from base import Data_Scraping
+from classes.base import Data_Scraping
 warnings.filterwarnings("ignore")
 
 """
@@ -154,7 +154,7 @@ if __name__ == '__main__':
     print("Data Handling has been instantiated")
     df = dh.cleaning_scryfall_data()
     print("Successfully created DataFrame Object")
-    df['lemmas'] = dh.lemma(df)
-    print("Successfully created lemmas from Card Descriptions")
-    df.to_csv(filepath)
-    print("Data has been updated. Thank you!")
+    # df['lemmas'] = dh.lemma(df)
+    # print("Successfully created lemmas from Card Descriptions")
+    # df.to_csv(filepath)
+    # print("Data has been updated. Thank you!")
