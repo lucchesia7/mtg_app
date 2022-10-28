@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image
 from io import BytesIO
 import requests
-from models import Model
+from classes.models import Model
 import pandas as pd
 import ast
 import os
