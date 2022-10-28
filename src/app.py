@@ -6,7 +6,7 @@ st.title("MTG Tracer")
 card_name = st.text_input('Please Input the Full Name of the Card You Would Like to See:')
 if st.button('Submit Card'):
     try:
-        st.image(user.img_return(card_name.lower()))
+        st.image(user.img_return(card_name.title()))
         img_list = user.recommended_cards(card_name = card_name)
         st.write(f"Here are {len(img_list)} cards that would be recommended for your deck based off {card_name.title()}")
         col1, col2, col3 = st.columns(3)

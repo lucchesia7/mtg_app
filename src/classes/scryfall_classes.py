@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 import warnings
 from pathlib import Path
-from base import Data_Scraping
+from classes.base import Data_Scraping
 warnings.filterwarnings("ignore")
 
 """

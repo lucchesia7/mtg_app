@@ -27,3 +27,7 @@ class Data_Scraping:
             self.return_frame = pd.read_json(filepath)
             
         return self.return_frame
+
+
+if __name__ == '__main__':
+    print(Data_Scraping().get_data_with())
