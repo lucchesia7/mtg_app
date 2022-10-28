@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image
 from io import BytesIO
 import requests
-from classes.models import Model
+from .models import Model
 import pandas as pd
 import ast
 import os
@@ -71,8 +71,7 @@ class User_Functions():
         names = model.nn(card_name=card_name)
         return [self.img_return(name) for name in names]
         
-    # def token_generator(self, token_type: str, token_count: int):
-    #     pass
 
-if __name__ == '__main__':
-    User_Functions().img_return('Sol Ring')
+    def token_generator(self, token_type: str, token_count: int):
+        pass
+
