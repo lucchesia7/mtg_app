@@ -5,8 +5,8 @@ import pymongo
 import pandas
 import os
 
-# filepath = os.path.join(Path(__file__).parents[1], 'data\.env')
-filepath = r'C:\Users\Alex Lucchesi\OneDrive\Documents\GitHub\MTG_app\src\data\.env'
+filepath = os.path.join(Path(__file__).parents[1], 'data\.env')
+# filepath = r'C:\Users\Alex Lucchesi\OneDrive\Documents\GitHub\MTG_app\src\data\.env'
 load_dotenv(filepath)
 mongo_url = os.getenv('mongo_url')
 client = pymongo.MongoClient(mongo_url)

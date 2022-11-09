@@ -7,6 +7,7 @@ import pandas as pd
 import ast
 import os
 
+
 filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')
 class User_Functions():
     def __init__(self):
