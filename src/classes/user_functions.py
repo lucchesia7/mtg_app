@@ -6,20 +6,12 @@ from .models import Model
 import pandas as pd
 import ast
 import os
-from dotenv import load_dotenv
-import pymongo
 
-# filepath = os.path.join(Path(__file__).parents[1], 'data\.env')
-filepath = r'C:\Users\Alex Lucchesi\OneDrive\Documents\GitHub\MTG_app\src\data\.env'
-load_dotenv(filepath)
-mongo_url = os.getenv('mongo_url')
-client = pymongo.MongoClient(mongo_url)
-db = client.test
-cards = db.cards
-
+filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')
 class User_Functions():
     def __init__(self):
-        pass
+        self.df = pd.read_csv(filepath, low_memory=False)
+        self.token_df = self.df[self.df['type_line'].str.contains('Card // Card|Token|Scheme|Vanguard|Emblem|Card|Plane', regex=True)]
 
     def img_return(self,card_name : str):
         """
@@ -28,8 +20,10 @@ class User_Functions():
         Would like to show 10 cards that have the same first few letters for users to choose from in a dropdown menu
         Output: Fully-detailed card image returned as output. 
         """
-        query = cards.find_one({'name':{'$regex' : card_name}}, {'image_uris': 1})
-        img_str = query['image_uris']['normal']
+        s = self.df[self.df['name'].str.lower().str.contains(str(card_name).lower())]['image_uris']
+        for k in s:
+            img_dic = ast.literal_eval(k)
+        img_str = img_dic['normal']
         response = requests.get(img_str)
         img = Image.open(BytesIO(response.content))
         return img

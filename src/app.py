@@ -8,7 +8,7 @@ if st.button('Submit Card'):
     try:
         st.image(user.img_return(card_name.title()))
         img_list = user.recommended_cards(card_name = card_name)
-        st.write(f"Here are {len(img_list)} cards that would be recommended for your deck based off {card_name.title()}")
+        st.write(f"Here are 9 cards that would be recommended for your deck based off {card_name.title()}")
         col1, col2, col3 = st.columns(3)
         col1.image(img_list[0:3])
         col2.image(img_list[4:7])
