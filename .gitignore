@@ -1,3 +1,5 @@
 Pipfile.lock
 Pipfile
 src/classes/oracle_data.json
+src/data/model_1
+src/data/vectorizer_vocab_2
