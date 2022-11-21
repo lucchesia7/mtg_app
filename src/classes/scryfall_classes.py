@@ -170,20 +170,11 @@ class Data_Handling(Data_Scraping):
 
         return self.df, target_cards
 
-    def tokenize(self, df: pd.DataFrame, token_column: pd.Series):
-        """
-        Input: Description column from scryfall data. Reusable for any text columns.
-        Output: Regex cleaned description split into individual words
-        """
-        for token in token_column:
-            token = re.sub(r'\d+/\d+/\d+', '', token)
-            self.df['tokens'] = re.sub('[^a-zA-Z 0-9]', '', token)
-        self.df['tokens'] = self.df['tokens'].str.lower().str.split()
-
     def lemma(self, df: pd.DataFrame):
         self.df = df
         self.df.dropna(subset=['oracle_text'], axis=0, inplace=True)
         self.df.drop(self.df.index[self.df['oracle_text'] == ''], inplace=True)
+        self.df['oracle_text'] = [re.sub('[^0-9a-zA-Z]+', ' ', i) for i in df.oracle_text]
         nlp = spacy.load('en_core_web_md')
         lemmas = []
         for doc in self.df['oracle_text']:

@@ -2,7 +2,6 @@ import streamlit as st
 from classes.user_functions import User_Functions
 user = User_Functions()
 st.title("MTG Tracer")
-# card_name = st.selectbox(f'Please Input the Full Name of the Card you Would Like to See:', options=('', user.df['name']))
 card_name = st.text_input(
     'Please Input the Full Name of the Card You Would Like to See:')
 # if st.button('Submit Card'):

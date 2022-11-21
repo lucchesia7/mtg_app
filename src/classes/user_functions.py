@@ -26,10 +26,11 @@ class User_Functions():
         Would like to show 10 cards that have the same first few letters for users to choose from in a dropdown menu
         Output: Fully-detailed card image returned as output.
         """
-        s = self.df[self.df['name'] ==
-                    Model().card_name_fix(card_name)]['image_uris']
+        s = self.df[self.df['name'] == Model().card_name_fix(card_name)]['image_uris']
         for k in s:
+            print(k)
             img_dic = ast.literal_eval(k)
+            print(img_dic)
         img_str = img_dic['normal']
         response = requests.get(img_str)
         img = Image.open(BytesIO(response.content))
@@ -45,6 +46,8 @@ class User_Functions():
         token_name : the name of the token you wish to create. Must be str data type\n
         token_type: The type of token you wish to create. This can be Emblems, Planes, Tokens, and Vanguards.\n
         token_count: The number of tokens you wish to create
+
+        st.number_input: https://docs.streamlit.io/library/api-reference/widgets/st.number_input
         """
 
         if token_type.lower() == 'tokens':
@@ -60,8 +63,7 @@ class User_Functions():
                 token_name.lower())]['image_uris']
 
         else:
-            self.s = self.token_df[self.token_df['name'].str.lower(
-            ).str.contains(token_name.lower())]['image_uris']
+            self.s = self.token_df[self.token_df['name'].str.lower().str.contains(token_name.lower())]['image_uris']
 
         for k in self.s:
             img_dic = ast.literal_eval(k)
@@ -78,8 +80,11 @@ class User_Functions():
         """
 
         model = Model()
-        names = model.nn(model.card_name_fix(card_name))
+        names = model.nn(card_name)
         return [self.img_return(name) for name in names]
 
     def token_generator(self, token_type: str, token_count: int):
         pass
+
+if __name__ == '__main__':
+    User_Functions().img_return("Kozilek's Channeler")
