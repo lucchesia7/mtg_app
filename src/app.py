@@ -5,7 +5,7 @@ from classes.models import dummy_fun
 user = User_Functions()
 
 
-def output(card_name='Sol Ring'):
+def output():
     try:
         st.image(user.img_return(card_name))
         img_list = user.recommended_cards(card_name=card_name)
@@ -24,6 +24,7 @@ st.title("MTG Tracer")
 card_name = st.text_input(
     'Please Input the Full Name of the Card You Would Like to See:')
 if st.button('Submit Card'):
-    output(card_name)
+    output()
 else:
-    output(card_name)
+    card_name = 'Sol Ring'
+    output()
