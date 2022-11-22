@@ -29,6 +29,8 @@ df_tokens.to_csv(f'{folder_dir}\\token_data.csv')
 print("DataFrame's have been saved to their files")
 
 # Define function to return single doc
+
+
 def dummy_fun(doc):
     return doc
 
@@ -40,11 +42,11 @@ vect = TfidfVectorizer(preprocessor=dummy_fun,
 
 vect.fit(df_cards['lemmas'])
 vect_vocab = vect.vocabulary_
-pickle.dump(vect_vocab, open(f'{folder_dir}\\vectorizer_vocab', 'wb'))
+pickle.dump(vect, open(f'{folder_dir}\\vect', 'wb'))
 print('Created vectorizer vocabulary')
 
 # Create model and save to file
-model = NearestNeighbors(n_neighbors=10)
+model = NearestNeighbors(n_neighbors=13)
 model.fit(vect.transform(df_cards['lemmas']))
 pickle.dump(model, open(f'{folder_dir}\\model', 'wb'))
 print('Model has been created and saved')

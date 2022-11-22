@@ -8,16 +8,15 @@ import ast
 import os
 
 
-filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')
+folder_dir = os.path.join(Path(__file__).parents[1], 'data')
 
 
 class User_Functions():
     def __init__(self):
-        self.df = pd.read_csv(filepath, low_memory=False)
-        self.token_df = self.df[self.df['type_line'].str.contains(
-            'Card // Card|Token|Scheme|Vanguard|Emblem|Card|Plane', regex=True)]
-        # self.df = self.df[~self.df['type_line'].str.contains(
-        #     'Card // Card|Token|Scheme|Vanguard|Emblem|Card|Plane', regex=True)]
+        self.df = pd.read_csv(
+            f'{folder_dir}/oracle_data.csv',
+            low_memory=False)
+        self.token_df = pd.read_csv(f'{folder_dir}/token_data.csv')
 
     def img_return(self, card_name: str):
         """
@@ -26,11 +25,10 @@ class User_Functions():
         Would like to show 10 cards that have the same first few letters for users to choose from in a dropdown menu
         Output: Fully-detailed card image returned as output.
         """
-        s = self.df[self.df['name'] == Model().card_name_fix(card_name)]['image_uris']
+        s = self.df[self.df['name'] ==
+                    Model().card_name_fix(card_name)]['image_uris']
         for k in s:
-            print(k)
             img_dic = ast.literal_eval(k)
-            print(img_dic)
         img_str = img_dic['normal']
         response = requests.get(img_str)
         img = Image.open(BytesIO(response.content))
@@ -63,7 +61,8 @@ class User_Functions():
                 token_name.lower())]['image_uris']
 
         else:
-            self.s = self.token_df[self.token_df['name'].str.lower().str.contains(token_name.lower())]['image_uris']
+            self.s = self.token_df[self.token_df['name'].str.lower(
+            ).str.contains(token_name.lower())]['image_uris']
 
         for k in self.s:
             img_dic = ast.literal_eval(k)
@@ -86,5 +85,6 @@ class User_Functions():
     def token_generator(self, token_type: str, token_count: int):
         pass
 
+
 if __name__ == '__main__':
-    User_Functions().img_return("Kozilek's Channeler")
+    User_Functions().recommended_cards('Sol Ring')

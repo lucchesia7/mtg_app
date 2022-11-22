@@ -90,11 +90,6 @@ class Data_Handling(Data_Scraping):
                 self.df['cmc'],
                 self.df['mana_cost'])
 
-        # d = ['Card // Card', 'Scheme', 'Vanguard', 'Token', 'Emblem', 'Card', 'Plane']
-        # for v in d:
-        #     i = self.df[self.df['type_line'].str.startswith(v)].index
-        #     self.df.drop(labels = i, inplace=True)
-
         return self.df
 
     def modeling_prep_mtg_oracle(self, df):
@@ -174,7 +169,11 @@ class Data_Handling(Data_Scraping):
         self.df = df
         self.df.dropna(subset=['oracle_text'], axis=0, inplace=True)
         self.df.drop(self.df.index[self.df['oracle_text'] == ''], inplace=True)
-        self.df['oracle_text'] = [re.sub('[^0-9a-zA-Z]+', ' ', i) for i in df.oracle_text]
+        self.df['oracle_text'] = [
+            re.sub(
+                '[^0-9a-zA-Z]+',
+                ' ',
+                i) for i in df.oracle_text]
         nlp = spacy.load('en_core_web_md')
         lemmas = []
         for doc in self.df['oracle_text']:
