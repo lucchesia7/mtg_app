@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image
 from io import BytesIO
 import requests
-from .models import Model
+from models import Model
 import pandas as pd
 import ast
 import os
@@ -23,6 +23,9 @@ class User_Functions():
         Input: Card name as a string. String set to autopopulate with Sol Ring.
         Bug: Dual sided cards are not returning. Desired return would be both sides of the card, if not just the side requested.
         Would like to show 10 cards that have the same first few letters for users to choose from in a dropdown menu
+
+        This function will take a card string and return an image output to the user of the specified card. Card name can be lowercased, uppercased, type-cased. But must be spelled properly.
+
         Output: Fully-detailed card image returned as output.
         """
         s = self.df[self.df['name'] ==
@@ -51,6 +54,7 @@ class User_Functions():
         if token_type.lower() == 'tokens':
             self.ss = self.token_df[self.token_df['type_line'].str.contains(
                 'Token')]
+
             self.s = self.ss[self.ss['name'].str.lower().str.contains(
                 token_name.lower())]['image_uris']
 
@@ -61,6 +65,7 @@ class User_Functions():
                 token_name.lower())]['image_uris']
 
         else:
+
             self.s = self.token_df[self.token_df['name'].str.lower(
             ).str.contains(token_name.lower())]['image_uris']
 
