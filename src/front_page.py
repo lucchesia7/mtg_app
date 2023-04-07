@@ -3,7 +3,7 @@ import streamlit as st
 from PIL import Image
 from pathlib import Path
 
-filepath = os.path.join(Path(__file__).parents[0], 'data\logo.jpg')
+filepath = os.path.join(Path(__file__).parents[0], 'data/logo.jpg')
 image = Image.open(filepath)
 st.title('MTG Tracer')
 st.subheader("An app built out of love and passion for Magic")
