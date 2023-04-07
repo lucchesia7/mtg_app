@@ -10,7 +10,7 @@ class MultiPage:
 
     def add_page(self, title, func) -> None:
         self.pages.append({
-            "title": title,
+            "title": title.str.title(),
             "function": func
         })
 
