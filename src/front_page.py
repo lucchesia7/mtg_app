@@ -1,12 +1,14 @@
+import os
 import streamlit as st
+from PIL import Image
+from pathlib import Path
 
+filepath = os.path.join(Path(__file__).parents[0], 'data\\logo.jpg')
+image = Image.open(filepath)
 st.title('MTG Tracer')
 st.subheader("An app built out of love and passion for Magic")
-st.text('''Each page of this application offers a different ___. 
-
-
-• Tokens allows users to create their own token counts and 
-  counters for each tokens in an easy-to-track format.
+st.image(image)
+st.text('''
 • Deck Builder will allow you to save cards to a list.
   This list can be input into Moxfield, MTGA/MTGO, and Forge.
 • Recommended cards allows you to input a card name and find 

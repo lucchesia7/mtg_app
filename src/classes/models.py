@@ -40,7 +40,6 @@ class Model():
             elif name[1] == "'":
                 name = name[0:3].upper() + name[3:]
                 self.split[s] = name
-                print(self.split[s])
                 s += 1
             else:
                 s += 1

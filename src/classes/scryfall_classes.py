@@ -6,7 +6,6 @@ import os
 from pathlib import Path
 import re
 import warnings
-from pathlib import Path
 from .base import Data_Scraping
 warnings.filterwarnings("ignore")
 
@@ -178,7 +177,7 @@ class Data_Handling(Data_Scraping):
         lemmas = []
         for doc in self.df['oracle_text']:
             lemmas.append([token.lemma_.lower().strip() for token in nlp(str(doc)) if (
-                (token.is_stop == False) and (token.is_punct == False) and (token.is_space == False))])
+                (token.is_stop != True) and (token.is_punct == False) and (token.is_space == False))])
         self.df['lemmas'] = lemmas
         return self.df['lemmas']
 

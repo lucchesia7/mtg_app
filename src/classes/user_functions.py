@@ -20,7 +20,7 @@ class User_Functions():
 
     def img_return(self, card_name: str):
         """
-        Input: Card name as a string. String set to autopopulate with Sol Ring.
+        Input: Card name as a string.
         Bug: Dual sided cards are not returning. Desired return would be both sides of the card, if not just the side requested.
         Would like to show 10 cards that have the same first few letters for users to choose from in a dropdown menu
 
@@ -93,3 +93,4 @@ class User_Functions():
 
 if __name__ == '__main__':
     User_Functions().recommended_cards('Sol Ring')
+    User_Functions().token_generation()
