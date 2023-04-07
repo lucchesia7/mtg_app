@@ -1,59 +1,72 @@
 from pathlib import Path
-from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 import pickle
 import os
+import re
 
-folder_dir = os.path.dirname(os.path.abspath(__file__))
-filepath = os.path.join(Path(__file__).parents[1], 'data/oracle_data.csv')
+
+folder_dir = os.path.join(Path(__file__).parents[1], 'data')
+print(folder_dir)
+
 
 def dummy_fun(doc):
     return doc
 
+
 class Model():
     def __init__(self):
-        self.df = pd.read_csv(filepath, low_memory=False)
-        self.nnm = pickle.load(open('{}/model'.format(folder_dir), 'rb'))
-        self.stop_words = ['on', 'the', 'of']
+        self.df = pd.read_csv(
+            f'{folder_dir}/oracle_data.csv',
+            low_memory=False)
+        self.nnm = pickle.load(open(f'{folder_dir}/model', 'rb'))
+        self.stop_words = ['on', 'the', 'of', 'and']
         self.cap_stop_words = [w.title() for w in self.stop_words]
-    
-    def card_name_fix(self, card_name:str):
-        self.split = card_name.split()
-        self.string = ''
-        # print(self.split)
+
+    def card_name_fix(self, card_name: str):
+        self.string = re.sub(
+            r"[A-Za-z]+('[A-Za-z]+)?",
+            lambda mo: mo.group(0)[0].upper() +
+            mo.group(0)[
+                1:].lower() if mo.group(0) not in self.stop_words or self.cap_stop_words and card_name.startswith(
+                mo.group(0)) else mo.group(0).lower(),
+            card_name)
+        self.split = self.string.split()
+        print(self.split)
+        s = 0
         for name in self.split:
             if '-' in name:
                 name = name.title()
-            elif name[0].islower() and name not in self.stop_words or card_name.startswith(name):
-                # print(f'{name} is lower-cased and not in stop words')
-                name = name.title()
-            elif name[0].isupper() and name in self.cap_stop_words and card_name.startswith(name) !=1:
-                # print(f'{name} is upper-cased and is in stop words')
-                name = name.lower()
-            self.string += (' ' + name)
-            self.string = self.string.strip()
-        # print(self.string)
-            
+                s += 1
+            elif name[1] == "'":
+                name = name[0:3].upper() + name[3:]
+                self.split[s] = name
+                s += 1
+            else:
+                s += 1
+        self.val = " ".join(self.split)
+        return self.val
 
-        return self.string
+    def nn(self, card_name: str):
+        """
+        Input:
+        Card_name: string object, recieved from user input
 
-    def nn(self, card_name:str):
-        self.vect = TfidfVectorizer(preprocessor = dummy_fun,
-                                    tokenizer = dummy_fun,
-                                    token_pattern=None,
-                                    vocabulary=pickle.load(open('{}/vectorizer_vocab'.format(folder_dir), 'rb')))
-        self.vect.fit(self.df['lemmas'])
+        Output:
+        9 recommended cards
+        """
+        self.card_name = self.card_name_fix(card_name)
+        self.vect = pickle.load(open(f'{folder_dir}/vect', 'rb'))
         self.names = []
-        self.doc = self.vect.transform(self.df['lemmas'][self.df['name'] == self.card_name_fix(card_name)])
-        self.n_index = self.nnm.kneighbors(self.doc, n_neighbors=13, return_distance=False)
-
+        self.doc = self.vect.transform(
+            self.df['lemmas'][self.df['name'] == self.card_name])
+        self.n_index = self.nnm.kneighbors(
+            self.doc, return_distance=False)
         for index in self.n_index[0]:
-            if index != self.df[self.df['name'] == self.card_name_fix(card_name)].index:
+            if index != self.df[self.df['name'] ==
+                                self.card_name].index:
                 self.names.append(self.df['name'][index])
         return self.names
+
+
 if __name__ == '__main__':
-    model = Model()
-    print(model.card_name_fix('elisha, The infinite'))
-    print(model.card_name_fix('the world tree'))
-    print(model.card_name_fix('The ur-Dragon'))
-    # print(model.nn('the world tree'))
+    print(Model().card_name_fix('the world tree'))

@@ -1,8 +1,8 @@
 # Magic the Gathering Recommendation System and Card Viewer
-## Preface
+## Purpose
 This is my attempt to combine the two things I love most in the world: Python and Magic The Gathering. I want to use this application to push myself in pursuit of knowledge. 
 
-In this post-COVID age, we find ourselves on SpellTable, playing online games more often than at our LGS. Often, our opponents camera has glare or is unfocused, inhibiting our ability to read the card effects and understand it. My application will allow users to look up cards faster than any site. So often, MTG players, both new and old, go to build or tweak their decks and can't find that perfect card to synergize with their deck properly. I wanted to fix that for myself and anyone else who might wish for better too. So, join me on this journey and we will be in a world of pure card synergy!
+In this post-COVID age, we find ourselves on SpellTable, playing online games more often than at our LGS. Often, our opponents camera has glare or is unfocused, inhibiting our ability to read the card effects and understand it. MTG players, both new and old, go to build or tweak their decks and can't find that perfect card to synergize with their deck properly. I wanted to fix that for myself and anyone else who might wish for better too. So, join me on this journey and we will be in a world of pure card synergy!
 
 ## Project Structure
 
@@ -25,7 +25,7 @@ In this post-COVID age, we find ourselves on SpellTable, playing online games mo
 --------
 
 ## How to use the app
-https://mtgtracer.streamlitapp.com/
+https://mtgtracer.streamlit.app
 
 The application is now live with it's V1.0.2 and available for anyone with the link to use. For those looking to improve upon the app, all current dependencies for it are located within the requirements.txt file.
 
