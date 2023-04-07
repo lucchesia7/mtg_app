@@ -25,7 +25,7 @@ In this post-COVID age, we find ourselves on SpellTable, playing online games mo
 --------
 
 ## How to use the app
-https://mtgtracer.streamlit.app/ 
+https://mtgtracer.streamlit.app
 
 The application is now live with it's V1.0.2 and available for anyone with the link to use. For those looking to improve upon the app, all current dependencies for it are located within the requirements.txt file.
 
