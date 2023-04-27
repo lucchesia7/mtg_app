@@ -8,6 +8,7 @@ from pathlib import Path
 # C: set to lowercase. Fixed with .upper and str concat
 folder_dir = f'{Path(__file__).parents[0]}\\data'
 folder_dir = folder_dir[0].upper() + folder_dir[1:]
+
 # Instantiate DataFrame Object
 df = Data_Handling().cleaning_scryfall_data()
 print('DataFrame Object has been created')
@@ -29,8 +30,6 @@ df_tokens.to_csv(f'{folder_dir}\\token_data.csv')
 print("DataFrame's have been saved to their files")
 
 # Define function to return single doc
-
-
 def dummy_fun(doc):
     return doc
 
