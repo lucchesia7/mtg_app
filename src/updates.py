@@ -29,6 +29,7 @@ df_cards.to_csv(f'{folder_dir}\\oracle_data.csv')
 df_tokens.to_csv(f'{folder_dir}\\token_data.csv')
 print("DataFrame's have been saved to their files")
 
+
 # Define function to return single doc
 def dummy_fun(doc):
     return doc
