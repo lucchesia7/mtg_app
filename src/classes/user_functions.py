@@ -30,8 +30,8 @@ class User_Functions():
         """
         s = self.df[self.df['name'] ==
                     Model().card_name_fix(card_name)]['image_uris']
-        for k in s:
-            img_dic = ast.literal_eval(k)
+        print(s.index[0])
+        img_dic = ast.literal_eval(s.loc[s.index[0]])
         img_str = img_dic['normal']
         response = requests.get(img_str)
         img = Image.open(BytesIO(response.content))
