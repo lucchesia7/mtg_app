@@ -14,11 +14,15 @@ In this post-COVID age, we find ourselves on SpellTable, playing online games mo
     │   
     ├── src                         <- Source code folder for this project
         |
-        ├── app.py                  <- Application file recognized by Streamlit
+        ├── front_page.py           <- Application file recognized by Streamlit
+        |
+        ├── multipage.py            <- Multi-page generator object for application. Creates sidebar with each page item.
         |
         ├── requirements.txt        <- File containing all necessary dependencies for the application
         |
         ├── classes                 <- Folder for classes created for scraping API, handling data, and user_functionality in the application.
+        │
+        ├── pages                   <- Folder containing all current pages available to the application
         │
         └── data                    <- Datasets used and created for this project
         
@@ -31,6 +35,7 @@ The application is now live with it's V1.0.2 and available for anyone with the l
 
 ## Currently Available Features
 * Users can look up any single-faced card and return a high-resolution image of the card.
+* Users can create and save a decklist as a .txt file. 
 * Users will be able to see the top-10 related cards to the input card.
 
 ## Limitations/Unintended Features
