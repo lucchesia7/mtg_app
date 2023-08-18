@@ -14,7 +14,7 @@ class Model():
             low_memory=False)
         self.stop_words = ['on', 'the', 'of', 'to', 'and', 'with', 'in']
         self.cap_stop_words = [w.title() for w in self.stop_words]
-        with open(f'{folder_dir}\\pipe.pk', 'rb') as f:
+        with open(f'{folder_dir}/pipe.pk', 'rb') as f:
             self.pipe = pickle.load(f)
 
     def card_name_fix(self, card_name: str):
